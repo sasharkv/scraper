@@ -43,16 +43,23 @@ static List<string> GetBookLinks(string url)
     HtmlDocument doc = GetDocument(url);
     var linkNodes = doc.DocumentNode.SelectNodes("//h3/a"); //selects all the nodes that match this XPath
 
+    Uri baseUri = new Uri(url); //we create a new Uri object
+    Console.WriteLine("base uri: " + baseUri.ToString());
+    var links = new List<string>();
 
     // run a loop over linkNodes to select the links
     foreach (var node in linkNodes)
     {
        var link = node.Attributes["href"].Value; // this is relative url (../../../its-only-the-himalayas_981/index.html) , we need to convert it to absolute url
+       // override the link with absolute path
+       link = new Uri(baseUri, link).AbsoluteUri; // different constructor is used for this; use AbsoluteUri to make it a string with an absolute Uri, not Uri type
+       links.Add(link);
     }
-
+    return links;
 }
 
-GetBookLinks(url);
+var links = GetBookLinks(url);
+
 
 
 

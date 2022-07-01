@@ -13,15 +13,14 @@
 
 
 using HtmlAgilityPack;
+using scraper;
 
 string url = "https://books.toscrape.com/catalogue/category/books/travel_2/index.html";
 
-/* HtmlWeb web = new HtmlWeb();
+// get all the book links
+var links = GetBookLinks(url);
 
-// load connects to the site and converts it into an HtmlDocument object (it's kind of like XML) which is ready to be queried
-HtmlDocument doc = web.Load(url);
-// DocumentNode gets you the complete document
-Console.Write(doc.DocumentNode.InnerHtml); */
+List<Book> books = GetBooks(links);
 
 
 // a method for getting the document
@@ -58,7 +57,9 @@ static List<string> GetBookLinks(string url)
     return links;
 }
 
-var links = GetBookLinks(url);
+
+
+
 
 
 

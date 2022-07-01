@@ -37,6 +37,22 @@ static HtmlDocument GetDocument(string url)
 HtmlDocument doc = GetDocument(url);
 
 // now we want to extract all the links from that page
+// so we make a function for that that returns a list of strings
+static List<string> GetBookLinks(string url)
+{
+    HtmlDocument doc = GetDocument(url);
+    var linkNodes = doc.DocumentNode.SelectNodes("//h3/a"); //selects all the nodes that match this XPath
+
+
+    // run a loop over linkNodes to select the links
+    foreach (var node in linkNodes)
+    {
+       var link = node.Attributes["href"].Value; // this is relative url (../../../its-only-the-himalayas_981/index.html) , we need to convert it to absolute url
+    }
+
+}
+
+GetBookLinks(url);
 
 
 

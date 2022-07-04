@@ -64,7 +64,7 @@ List<Book> GetBooks(List<string> links)
     foreach (string link in links) // this tim this link actually represents the book link
     {
         var doc = GetDocument(link);
-        var book = new Book();
+        var book = new Book(); // we create a new book object and fill in all the props
         // this time we only need 1 node - the title, and we assign it to a property of a newly created Book object
         book.Title = doc.DocumentNode.SelectSingleNode("//h1").InnerText;
 
@@ -72,7 +72,13 @@ List<Book> GetBooks(List<string> links)
 
         string xpath = "//*[@class=\"col - sm - 6 product_main\"]/*[@class=\"price_color\"]";
         string price_raw = doc.DocumentNode.SelectSingleNode(xpath).InnerText; // this will be the entire string
+
+        book.Price = ExtractPrice(price_raw); 
+
+        books.Add(book); 
     }
+
+    return books;
 }
 
 // a function to extract the price
